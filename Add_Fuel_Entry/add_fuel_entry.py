@@ -33,7 +33,7 @@ def connect_to_sm_rest(url):
         )
     return respose.json()
 
-def add_fuelup(vehicle, tank, date, type, odometer, trip, quantity, quantityunit, fuelsort, price, currency, attributes, streets):
+def add_fuel_entry(vehicle, tank, date, type, odometer, trip, quantity, quantityunit, fuelsort, price, currency, attributes, streets):
     """
     vehicle         Numeric Spritmonitor ID of vehicle to add a fuel up
     tank            Numeric ID of tank of vehicle to add a fuel up
@@ -49,15 +49,31 @@ def add_fuelup(vehicle, tank, date, type, odometer, trip, quantity, quantityunit
     attributes      Combination of one tire type (wintertires,summertires,allyeartires) and one driving style (slow,normal,fast) and one or more extras (ac,heating,trailer)
     streets         Combination of city, autobahn, land
     """
+
+    if vehicle == 0:
+        raise Exception("Invalid vehicle ID")
+
     url = (f"{SM_API_URL}/vehicle/{vehicle}/tank/{tank}/fueling.json?date={date}&type={type}&odometer={odometer}" 
            f"&trip={trip}&quantity={quantity}&quantityunitid={quantityunit}&fuelsortid={fuelsort}&price={price}&currencyid={currency}"
            f"&attributes={attributes}&streets={streets}")
     result = connect_to_sm_rest(url)
     print(json.dumps(result))
-    print(url)
 
 def main():
-    add_fuelup(563956, 1, "19.11.2022", "full", 12345, 500, 50, 1, 1, 100, 0, 'summertires,normal,ac', 'land')
+    vehicleId = 0
+    tankId = 1
+    date = "20.11.2022"
+    fuel_type = "full"
+    odometer = 123456
+    trip = 500
+    quantity = 50
+    quantityunit = 1
+    fuelsort = 1
+    price = 100
+    currencyId = 1
+    attributes = "summertires,normal,ac"
+    streets = "land"
+    add_fuel_entry(vehicleId, tankId, date, fuel_type, odometer, trip, quantity, quantityunit, fuelsort, price, currencyId, attributes, streets)
 
 if __name__ == "__main__":
     main()

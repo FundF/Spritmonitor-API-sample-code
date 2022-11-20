@@ -37,6 +37,10 @@ def get_fuel_entries(vehicle_id, limit=15, offset=0):
     """
     Retrieve fuel entries from vehicle with given id
     """
+
+    if vehicle_id == 0:
+        raise Exception("Invalid vehicle ID")
+
     url = f"{SM_API_URL}/vehicle/{vehicle_id}/fuelings.json?limit={limit}&offset={offset}"
     entries = connect_to_sm_rest(url)
     return entries
