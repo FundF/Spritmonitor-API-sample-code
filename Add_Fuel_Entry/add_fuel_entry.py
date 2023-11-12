@@ -33,7 +33,7 @@ def connect_to_sm_rest(url):
         )
     return respose.json()
 
-def add_fuel_entry(vehicle, tank, date, type, odometer, trip, quantity, quantityunit, fuelsort, price, currency, attributes, streets):
+def add_fuel_entry(vehicle, tank, date, type, odometer, trip, quantity, quantityunit, fuelsort, price, currency, attributes, streets, percent):
     """
     vehicle         Numeric Spritmonitor ID of vehicle to add a fuel up
     tank            Numeric ID of tank of vehicle to add a fuel up
@@ -48,6 +48,7 @@ def add_fuel_entry(vehicle, tank, date, type, odometer, trip, quantity, quantity
     currency        Numeric ID of currency, e.g., 0 for EUR, 2 for USD, etc. For full list see general infos sample code
     attributes      Combination of one tire type (wintertires,summertires,allyeartires) and one driving style (slow,normal,fast) and one or more extras (ac,heating,trailer)
     streets         Combination of city, autobahn, land
+    percent         Only for electric vehicles: Specifies the charge level in percent _after_ charging, only applicable for notfull charges
     """
 
     if vehicle == 0:
@@ -63,7 +64,7 @@ def main():
     vehicleId = 0
     tankId = 1
     date = "20.11.2022"
-    fuel_type = "full"
+    fuel_type = "notfull"
     odometer = 123456
     trip = 500
     quantity = 50
@@ -73,7 +74,8 @@ def main():
     currencyId = 1
     attributes = "summertires,normal,ac"
     streets = "land"
-    add_fuel_entry(vehicleId, tankId, date, fuel_type, odometer, trip, quantity, quantityunit, fuelsort, price, currencyId, attributes, streets)
+    percent = 80
+    add_fuel_entry(vehicleId, tankId, date, fuel_type, odometer, trip, quantity, quantityunit, fuelsort, price, currencyId, attributes, streets, percent)
 
 if __name__ == "__main__":
     main()
