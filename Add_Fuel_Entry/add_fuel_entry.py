@@ -56,7 +56,7 @@ def add_fuel_entry(vehicle, tank, date, type, odometer, trip, quantity, quantity
 
     url = (f"{SM_API_URL}/vehicle/{vehicle}/tank/{tank}/fueling.json?date={date}&type={type}&odometer={odometer}" 
            f"&trip={trip}&quantity={quantity}&quantityunitid={quantityunit}&fuelsortid={fuelsort}&price={price}&currencyid={currency}"
-           f"&attributes={attributes}&streets={streets}")
+           f"&attributes={attributes}&streets={streets}&percent={percent}")
     result = connect_to_sm_rest(url)
     print(json.dumps(result))
 
