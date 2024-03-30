@@ -49,6 +49,6 @@ We welcome pull requests that add meaningful additions to these code samples.
 
 ## Copyright
 
-Copyright 2022 Fisch und Fischl GmbH
+Copyright 2024 Fisch und Fischl GmbH
 
 Licensed under the Apache License, Version 2.0: https://www.apache.org/licenses/LICENSE-2.0
