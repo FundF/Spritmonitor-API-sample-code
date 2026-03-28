@@ -11,7 +11,7 @@ Individual API features have folders where you can find examples of usage.
 
 ## Using the code samples
 
-In order to run the samples in this repository you will need to setup some environment variables. You can create a new access bearer token on the [Spritmonitor Password Page](https://www.spritmonitor.de/en/my_account/change_password.html). The app token can be requested by the Spritmonitor support on the [Spritmonitor Contact Page](https://www.spritmonitor.de/en/contact.html).
+In order to run the samples in this repository you will need to setup some environment variables. You can create a new access bearer token on the [Spritmonitor Password Page](https://www.spritmonitor.de/en/my_account/change_password.html). The app token can be requested on the [Spritmonitor App Token Request Page](https://www.spritmonitor.de/en/request_apptoken.html).
 
 
 ```bash
