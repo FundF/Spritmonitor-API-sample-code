@@ -5,6 +5,31 @@ Individual API features have folders where you can find examples of usage.
 
 * [Spritmonitor API documentation](https://api.spritmonitor.de/doc)
 
+## Samples
+
+| Folder | What it shows |
+| --- | --- |
+| [List_Vehicles](List_Vehicles) | The vehicles of the user, their tanks and their stored configuration |
+| [List_Fuel_Entries](List_Fuel_Entries) | The fuel ups of a vehicle |
+| [List_Expense_Entries](List_Expense_Entries) | The costs and notes of a vehicle |
+| [List_General_Infos](List_General_Infos) | Fuel sorts, currencies, quantity units, cost types and the unit settings of the user |
+| [List_Vehicle_Statistics](List_Vehicle_Statistics) | Consumption per month, cost distribution, expenses and refunds, driven distance and the consumption details of a tank - the data a custom dashboard is built from |
+| [Add_Fuel_Entry](Add_Fuel_Entry) | Adding a fuel up, including the driving conditions it was made under |
+| [Manage_Expense_Entries](Manage_Expense_Entries) | Adding, updating and deleting an expense, including recurring ones |
+
+## Error handling
+
+Requests that add, update or delete an entry answer with HTTP status **200 even when the entry was
+rejected**. The outcome is reported in the response body instead:
+
+```json
+{"errors": 1, "errormessages": {"quantity": {"isEmpty": "Value is required and can't be empty"}}}
+```
+
+`errors` is `0` when the entry was stored. A script that only looks at the HTTP status code will
+mistake a rejected entry for a stored one, which is why every sample here passes its answer through
+`check_for_errors()` before using it. Keep that check when you build on this code.
+
 ## Prerequisites
 
 * User account on Spritmonitor ([Sign up here](https://www.spritmonitor.de/en/register.html))

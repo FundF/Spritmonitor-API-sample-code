@@ -24,14 +24,28 @@ def connect_to_sm_rest(url):
     """
     Send request to Spritmonitor REST endpoint
     """
-    respose = requests.request("GET", url, auth=bearer_auth)
-    if respose.status_code != 200:
+    response = requests.request("GET", url, auth=bearer_auth)
+    if response.status_code != 200:
         raise Exception(
             "Request returned an error: {} {}".format(
-                respose.status_code, respose.text
+                response.status_code, response.text
             )
         )
-    return respose.json()
+    return check_for_errors(response.json())
+
+def check_for_errors(result):
+    """
+    Spritmonitor answers with HTTP status 200 even when a request was rejected. Requests that add,
+    update or delete an entry report the outcome in the response body instead: "errors" is 0 when
+    the entry was stored, otherwise it holds the number of rejected fields and "errormessages"
+    describes them. Looking at the status code alone would mistake a rejected entry for a stored
+    one, so always check the body as well.
+    """
+    if isinstance(result, dict) and result.get("errors"):
+        raise Exception(
+            "Request was rejected: {}".format(json.dumps(result.get("errormessages", {})))
+        )
+    return result
 
 def get_fuel_entries(vehicle_id, limit=15, offset=0):
     """
